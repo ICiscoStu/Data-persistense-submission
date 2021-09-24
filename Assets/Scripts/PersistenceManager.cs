@@ -6,7 +6,9 @@ using System.IO;
 public class PersistenceManager : MonoBehaviour
 {
     public static PersistenceManager Instance;
-    public string playerName;
+
+    public string sessionName;
+    public string highScoreName;
     public int highScore;
 
     private void Awake() {
@@ -23,21 +25,22 @@ public class PersistenceManager : MonoBehaviour
 
     public void NameAdded(string name)
     {
-        PersistenceManager.Instance.playerName = name;
+        sessionName = name;
     }
 
     [System.Serializable]
     class SaveData
     {
-        public string playerName;
+        public string nameP;
         public int highScore;
     }
 
-    public void SaveScore(int score)
+    public void SaveScore()
     {
         SaveData data = new SaveData();
-        data.playerName = playerName;
-        data.highScore = score;
+        
+        data.nameP = sessionName;
+        data.highScore = highScore;
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
@@ -50,7 +53,7 @@ public class PersistenceManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-            playerName = data.playerName;
+            highScoreName = data.nameP;
             highScore = data.highScore;
         }
     }

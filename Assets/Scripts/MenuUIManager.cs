@@ -18,7 +18,9 @@ public class MenuUIManager : MonoBehaviour
 
     public void StartNew()
     {
-        PersistenceManager.Instance.NameAdded(inputField.GetComponent<TMP_InputField>().text);
+        string n = inputField.GetComponent<TMP_InputField>().text;
+        Debug.Log(n);
+        PersistenceManager.Instance.sessionName = n;
         SceneManager.LoadScene(1);
         
     }
@@ -30,6 +32,13 @@ public class MenuUIManager : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    public void ClearScore()
+    {
+        PersistenceManager.Instance.highScoreName = "";
+        PersistenceManager.Instance.highScore = 0;
+        PersistenceManager.Instance.SaveScore();
     }
 
 }

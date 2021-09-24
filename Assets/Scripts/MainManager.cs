@@ -41,7 +41,7 @@ public class MainManager : MonoBehaviour
         if(PersistenceManager.Instance != null)
         {
             PersistenceManager.Instance.LoadScore();
-            bestScoreText.text = $"Best Score: {PersistenceManager.Instance.playerName}: {PersistenceManager.Instance.highScore}";
+            bestScoreText.text = $"Best Score: {PersistenceManager.Instance.highScoreName} : {PersistenceManager.Instance.highScore}";
         }
     }
 
@@ -83,7 +83,8 @@ public class MainManager : MonoBehaviour
         {
             if(m_Points > PersistenceManager.Instance.highScore)
             {
-                PersistenceManager.Instance.SaveScore(m_Points);
+                PersistenceManager.Instance.highScore = m_Points;
+                PersistenceManager.Instance.SaveScore();
             }
 
         }
